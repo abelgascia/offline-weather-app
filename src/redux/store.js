@@ -1,14 +1,20 @@
 import { createStore } from "redux";
-import dataReducer from "./reducers/dataReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
+import userDataReducer from "./reducers/UserDataReducer";
+import weatherDataReducer from "./reducers/WeatherDataReducer";
 
 const persistConfig = {
   key: "primary",
   storage,
 };
 
-const persistReduce = persistReducer(persistConfig, dataReducer);
+const persistReduce = persistReducer(
+  persistConfig,
+  userDataReducer,
+  weatherDataReducer
+);
 
 export default () => {
   let store = createStore(persistReduce);

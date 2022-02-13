@@ -6,6 +6,7 @@
 const initialState = {
   city: null,
   list: null,
+  error: null,
 };
 
 /**
@@ -13,16 +14,21 @@ const initialState = {
  * @param {(object|array)} state - Estado inicial de la store de redux.
  * @param {object} action - Accion a ser ejecutada por el reducer.
  */
-const UserDataReducer = (action, state = initialState) => {
-  if (action.type === "SET_WEATHER_DATA") {
-    return {
-      ...state,
-      city: action.payload.city,
-      list: action.payload.list,
-    };
-  } else {
-    return state;
+const weatherDataReducer = (action, state = initialState) => {
+  switch (action.type) {
+    case "SET_WEATHER_DATA":
+      return {
+        ...state,
+        city: action.payload.city,
+        list: action.payload.list,
+      };
+    case "SET_WEATHER_DATA_ERROR":
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    default:
+      return state;
   }
 };
-
-export default UserDataReducer;
+export default weatherDataReducer;
