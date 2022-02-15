@@ -10,7 +10,7 @@ import axios from "axios";
 export default function getWeather({ city, lat, lon }) {
   // We build our API url here with the API_KEY, lat and lon from user or a city
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
+  const API_URL = "https://api.openweathermap.org/data/2.5/onecall";
   const WEATHER_URL = axios.create({
     baseURL: API_URL,
     timeout: 30000,
@@ -20,6 +20,7 @@ export default function getWeather({ city, lat, lon }) {
     params: {
       ...(city ? { q: city } : {}),
       ...(!city ? { lat: lat, lon: lon } : {}),
+      exclude: "minutely,hourly,alerts",
       appid: API_KEY,
     },
   });
